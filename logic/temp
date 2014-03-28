@@ -1,0 +1,32 @@
+		if (count($resul)>1){
+			/* обединяване на заглавия, известни като... */
+			foreach ($res as $id1 => $id2){
+			/* съответстващите си индекси в aliases*/
+					$k1=0;
+					$k2=0;
+					reset($resul);
+				for($j=0;$j<count($resul);$j++){
+echo '$j='.$j.'<br>';
+					$key=key($resul[$j]['opera_title']);
+echo '$key='.$key.'<br>';
+echo '$id1='.$id1.'<br>';
+echo '$id2='.$id2.'<br>';
+					if ($key==$id1) {
+						$k1=$j;
+					}
+					if ($key==$id2) {
+						$k2=$j;
+					}
+				}
+dump ($resul[$k1]['opera_title']);
+dump ($resul[$k2]['opera_title']);
+echo '$k1='.$k1.'<br>';
+echo '$k2='.$k2.'<br>';
+				$resul[$k1]['opera_title'][]=current($resul[$k2]['opera_title']);
+						foreach ($resul[$k2]['composers'] as $k => $v){
+							$resul[$k1]['composers'][$k]=$v;
+						}
+						unset($resul[$k2]);
+						sort ($resul);
+				}			
+		}

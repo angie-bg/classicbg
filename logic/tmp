@@ -1,0 +1,41 @@
+		$keys=array();
+		$values=array();
+		foreach($res as $k=>$v){
+			$keys[]=$k;
+			$values[]=$v;
+		}
+		if (count($resul)>1){
+			/* обединяване на заглавия, известни като... */
+			$k1=0;
+			$k2=0;
+			$set1=false;
+			$set2=false;
+			foreach ($resul as $k=>$v) {
+				$key=key($resul[$k]['opera_title']);
+				if (array_key_exists ($key,$res)){
+					$k1=$k;
+					$set1=true;
+				}
+				if (array_search ($key,$res)){
+					$k2=$k;
+					$set2=true;
+				}
+//echo $k.'<br>';
+//echo $key.'<br>';
+				if($set1 and $set2){
+					$resul[$k1]['opera_title'][]=current($resul[$k2]['opera_title']);
+							foreach ($resul[$k2]['composers'] as $k => $v){
+								$resul[$k1]['composers'][$k]=$v;
+							}
+							unset($resul[$k2]);
+//							sort ($resul);
+							$k1=$k2=0;
+							$set1=$set2=false;
+				}
+echo $k1.'<br>';
+echo $k2.'<br>';
+dump ($resul);
+			}			
+		}
+	}
+
